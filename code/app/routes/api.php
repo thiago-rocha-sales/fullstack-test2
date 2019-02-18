@@ -20,7 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// Route::group(['middleware' => 'auth:api'], function() {
+Route::group(['middleware' => 'auth:api'], function() {
     Route::delete('post/{id}', 'PostController@destroy');
     Route::post('post', 'PostController@store');
     Route::put('post', 'PostController@store');
@@ -34,7 +34,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     Route::put('tag', 'TagController@store');
 
     Route::post('logout', 'UserController@logout');
-// });
+});
 
 
 Route::get('posts', 'PostController@index');
