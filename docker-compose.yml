@@ -1,0 +1,39 @@
+version: '3'
+services:
+ web:
+  image: nginx:alpine
+  ports:
+    - "8190:80"
+  volumes:
+    - ./code:/code
+    - ./site.conf:/etc/nginx/conf.d/default.conf
+  links:
+    - php
+ 
+ db:
+  image: postgres:9.5-alpine
+  environment:
+   - POSTGRES_USER=root
+   - POSTGRES_PASSWORD=toor
+   - POSTGRES_DB=blog
+  ports:
+   - "8193:5432"
+  networks: 
+    - code-network   
+
+ php:
+  build:
+   context: .
+   dockerfile: ./dockers/php/Dockerfile
+  volumes:
+    - ./code:/code
+  env_file:
+    - ./code/app/.env
+  depends_on:
+    - db
+  networks: 
+    - code-network
+
+networks:
+  code-network:
+    driver: bridge    
