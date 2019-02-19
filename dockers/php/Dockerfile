@@ -16,9 +16,7 @@ RUN set -x ; \
     addgroup -g 82 -S www-data ; \
     adduser -u 82 -D -S -G www-data www-data ; exit 0
 
-COPY --chown=www-data:www-data ./code/app /code/app
-
-# RUN chmod -R 775 /code/app/storage
+ADD --chown=www-data:www-data ./code /code
 
 USER www-data
 
