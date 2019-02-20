@@ -20,4 +20,4 @@ ADD --chown=www-data:www-data ./code /code
 
 USER www-data
 
-WORKDIR /code/app
+WORKDIR /code
