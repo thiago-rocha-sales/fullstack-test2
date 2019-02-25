@@ -10,15 +10,17 @@ use App\Http\Resources\PostCollection;
 class PostController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('client.credentials')->only([
-    //         'store', 'destroy']);
-    // }
-
-    public function index()
+    public function index(Request $request)
     {
-        return new PostCollection(Post::paginate(5));
+        $posts = null;
+        if ($request->has('title')) {
+            $q = $request->input('title');
+            $posts = Post::where('title', 'like', '%' . $q . '%')
+                ->paginate(5);
+        } else {
+            $posts = Post::orderBy('id', 'desc')->paginate(5);
+        }
+        return new PostCollection($posts);
     }
 
     public function show($id)
@@ -39,10 +41,28 @@ class PostController extends Controller
     {
         $post = $request->isMethod('put') ?
             Post::findOrfail($request->id) : new Post;
+       
+        $fileName = '';
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = storage_path('app/public/images');
 
+            // if(!File::exists($imagePath)) {
+            //     File::makeDirectory($imagePath);
+            // }
+
+            // $name = uniqid(date('HisYmd'));
+            // $ext = $request->image->extension();
+
+            // $fileName = "{$name}.{$ext}";
+
+            $fileName = $request->file('image')->getClientOriginalName();
+
+            $request->image->storeAs('public/images', $fileName);
+        }    
+ 
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->image = $request->input('image');
+        $post->image = $fileName;
         $post->published = $request->input('published');
         $post->author_id = $request->input('author_id');
 

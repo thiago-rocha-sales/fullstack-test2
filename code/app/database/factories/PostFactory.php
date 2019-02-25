@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 $factory->define(App\Post::class, function (Faker $faker) {
     $authors = App\Author::pluck('id')->toArray();
 
-    $imagePath = storage_path('images');
+    $imagePath = storage_path('app/public/images');
 
     if(!File::exists($imagePath)) {
         File::makeDirectory($imagePath);

@@ -1,0 +1,74 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Post's</div>
+
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($posts['data'] as $post)
+                                <tr>
+                                    <th scope="row">{{ $post['id'] }}</th>
+                                    <td>{{ $post['title'] }}</td>
+                                    <td>{{ $post['slug'] }}</td>
+                                    <td><i class="delete">
+                                        <a href="/admin/delete/{{ $post['id'] }}">Delete</a>
+                                    </i></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    <div class="card">
+                        <div class="card-header">Form Post's</div>
+                        <div class="card-body">
+                            <form method="POST" action="/admin" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label for="body">Content</label>
+                                    <textarea class="form-control" id="body" name="body" rows="3"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">Image</label>
+                                    <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
+                                </div>
+
+                                <input type="hidden" name="published" value="true">
+                                <input type="hidden" name="author_id" value="6">
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection

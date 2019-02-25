@@ -21,6 +21,7 @@ class UserController extends Controller
             'password' => request('password')])) {
                 $user = Auth::user();
                 $success['token'] = $user->createToken('webapp')->accessToken;
+                $success['user'] = $user;
                 return response()->json(['success' => $success], 
                     $this->successStatus);
         } else {
@@ -59,7 +60,7 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
         $success['token'] = $user->createToken('webapp')->accessToken;
-        $success['name'] = $user->name;
+        $success['user'] = $user;
         return response()->json(['success' => $success], $this->successStatus);
     }
 

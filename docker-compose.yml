@@ -27,6 +27,7 @@ services:
    dockerfile: ./dockers/php/Dockerfile
   volumes:
     - ./code:/code
+    - ./php.ini:/etc/php7/conf.d/50-setting.ini
   env_file:
     - ./code/app/.env
   depends_on:
