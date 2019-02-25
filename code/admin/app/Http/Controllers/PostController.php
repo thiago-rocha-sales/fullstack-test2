@@ -76,22 +76,43 @@ class PostController extends Controller
             dd($e->getResponse()->getBody()->getContents());
         }
         
-        return redirect()->action('PostController@index');
+        // return redirect()->action('PostController@index');
+        return redirect('/admin');
     }
 
-    public function delete($id)
+    public function delete(Request $request)
     {
         try {
             $auth_token = 'Bearer ' . $request->session()->get("auth_token");
 
-            $headers =  [
-                'Authorization' => $auth_token,
-                'Accept' => 'application/json'
+            $id = $request->input('id');
+
+            $params =  [
+                'headers' => [
+                    'Authorization' => $auth_token,
+                    'Accept' => 'application/json'
+                ]
             ];
 
             $this->apiClient->delete('/app/api/post/' . $id, $params);
-        } catch (\Throwable $th) {
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
             //throw $th;
+        }
+
+        return redirect('/admin');
+    }
+
+    public function show($id) 
+    {
+        try {
+            $response = $this->apiClient->get("/app/api/post/{$id}");
+
+            return $response->getBody()->getContents();
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            
+            return [
+                'error' => $e->getMessage()
+            ];
         }
     }
 }

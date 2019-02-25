@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'PostController@index');
     Route::post('/', 'PostController@store');
     Route::post('delete', 'PostController@delete');
+    Route::get('show/{id}', 'PostController@show');
     // Route::get('/', function () {
     //     return view('home');
     // });

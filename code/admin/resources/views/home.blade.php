@@ -29,13 +29,22 @@
                                     <th scope="row">{{ $post['id'] }}</th>
                                     <td>{{ $post['title'] }}</td>
                                     <td>{{ $post['slug'] }}</td>
-                                    <td><i class="delete">
-                                        <a href="/admin/delete/{{ $post['id'] }}">Delete</a>
-                                    </i></td>
+                                    <td>
+                                        <i class="">
+                                            <a href="#{{ $post['id'] }}" class="delete">Delete</a>
+                                        </i>
+                                        <i>
+                                            <a href="/admin/show/{{ $post['id'] }}" class="edit">Edit</a>
+                                        </i>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+
+                    <form id="delete-post-form" action="/admin/delete" method="POST" style="display: none;">
+                        @csrf
+                    </form>
 
                     <div class="card">
                         <div class="card-header">Form Post's</div>
@@ -55,8 +64,8 @@
                                     <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
                                 </div>
 
-                                <input type="hidden" name="published" value="true">
-                                <input type="hidden" name="author_id" value="6">
+                                <input type="hidden" id="published" name="published" value="true">
+                                <input type="hidden" id="author_id" name="author_id" value="6">
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
