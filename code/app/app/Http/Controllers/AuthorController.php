@@ -11,7 +11,7 @@ class AuthorController extends Controller
 {
     public function index()
     {
-        return new AuthorCollection(Author::paginate(5));
+        return new AuthorCollection(Author::orderBy('name')->get());
     }
 
     public function show($id)

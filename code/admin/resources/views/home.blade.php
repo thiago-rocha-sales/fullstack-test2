@@ -59,13 +59,24 @@
                                     <label for="body">Content</label>
                                     <textarea class="form-control" id="body" name="body" rows="3"></textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="author_id">Author</label>
+                                    <select class="form-control" id="author_id" name="author_id">
+                                        @foreach($authors['data'] as $author)
+                                            <option value="{{ $author['id'] }}">{{ $author['name'] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="image">Image</label>
                                     <input type="file" class="form-control-file" id="image" name="image" accept=".jpg, .jpeg, .png">
                                 </div>
 
                                 <input type="hidden" id="published" name="published" value="true">
-                                <input type="hidden" id="author_id" name="author_id" value="6">
+                                <!-- <input type="hidden" id="author_id" name="author_id" value="6"> -->
+                                <input type="hidden" id="id" name="id">
 
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>

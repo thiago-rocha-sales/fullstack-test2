@@ -19,7 +19,7 @@ $(function(){
         event.preventDefault();
 
         var href = $(this).attr('href');
-        
+
         $.get(href, function(data, status) {
             var obj = JSON.parse(data);
             
@@ -27,15 +27,9 @@ $(function(){
             $('#body').val(obj.data.body);
             $('#published').val(obj.data.published);
             $('#author_id').val(obj.data.author_id);
-        });
+            $('#id').val(obj.data.id);
 
-        // $.ajax({
-        //     method: 'get',
-        //     url: href,
-        //     success: function(data) {
-        //         console.log(data);
-        //     }
-        // });
+        });
 
     });
 });
