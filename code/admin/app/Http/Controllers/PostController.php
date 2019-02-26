@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Resources\PostCollection;
 
+use App\Paginator;
+
 class PostController extends Controller
 {
 
@@ -28,17 +30,24 @@ class PostController extends Controller
     {
         try {
 
-            $response = $this->apiClient->get('/app/api/posts');
+            $url = '/app/api/posts';
+
+            if($request->input('page'))
+                $url .= '?page=' . $request->input('page');
+
+            $response = $this->apiClient->get($url);
             $posts = json_decode($response->getBody()->getContents(), true);
 
-            // dd($posts);
+            $paginator = new Paginator($posts);
 
             $response = $this->apiClient->get('/app/api/authors');
             $authors =  json_decode($response->getBody()->getContents(), true);       
 
+
             return view('home', [
                 'posts' => $posts,
-                'authors' => $authors
+                'authors' => $authors,
+                'paginator' => $paginator
             ]);
 
         } catch (\GuzzleHttp\Exception\ClientException $e) {

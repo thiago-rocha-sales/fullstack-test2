@@ -30,8 +30,8 @@
                                     <td>{{ $post['title'] }}</td>
                                     <td>{{ $post['slug'] }}</td>
                                     <td>
-                                        <i class="">
-                                            <a href="#{{ $post['id'] }}" class="delete">Delete</a>
+                                        <i class="fa fa-camera-retro fa-lg">
+                                            <!-- <a href="#{{ $post['id'] }}" class="delete">Delete</a> -->
                                         </i>
                                         <i>
                                             <a href="/admin/show/{{ $post['id'] }}" class="edit">Edit</a>
@@ -41,6 +41,11 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="{{ $paginator->getPrev() }}">Previous</a></li>
+                        <li class="page-item"><a class="page-link" href="{{ $paginator->getNext() }}">Next</a></li>
+                    </ul> 
 
                     <form id="delete-post-form" action="/admin/delete" method="POST" style="display: none;">
                         @csrf
