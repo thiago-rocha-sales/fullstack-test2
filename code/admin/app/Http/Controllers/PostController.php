@@ -31,7 +31,7 @@ class PostController extends Controller
             $response = $this->apiClient->get('/app/api/posts');
             $posts = json_decode($response->getBody()->getContents(), true);
 
-            dd($posts);
+            // dd($posts);
 
             $response = $this->apiClient->get('/app/api/authors');
             $authors =  json_decode($response->getBody()->getContents(), true);       

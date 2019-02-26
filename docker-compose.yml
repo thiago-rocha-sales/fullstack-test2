@@ -28,6 +28,8 @@ services:
   volumes:
     - ./code:/code
     - ./php.ini:/etc/php7/conf.d/50-setting.ini
+    - ./config/.env:/code/app/.env
+    # - ./config/.env:/code/admin/.env
   env_file:
     - ./code/app/.env
   depends_on:

@@ -1,4 +1,23 @@
-$(function(){            
+$(function(){     
+
+    $('#searchField').on('keyup', function(event) {
+        event.preventDefault();
+
+        var value = this.value;
+        if (value.length >= 3) {
+            var path = '/app/api/posts?title='+value;
+            getPosts(path);
+        }
+        
+    });
+    
+    $('body').on('click', 'a.btn', function(event) {
+        event.preventDefault();
+        var href = $(this).attr('href');
+
+        if(href)
+            getPosts(href);
+    });
 
     class DomElement {
         constructor(tag, attributes, text, nodes) {
@@ -11,15 +30,16 @@ $(function(){
     };
 
     var buildDomElement = function(post) {
+
         var nodes = [
             new DomElement('<p>', {}, post.body, []),
-            new DomElement('<div>', {class:"fakeimg", height:"200px"}, '',
+            new DomElement('<p>', {style:'width: 100%;'}, '',
                 new DomElement('<img>', {src:'/app/storage/images/' + post.image}, '', [])),
-            new DomElement('<h5>', {}, 'Title description, Dec 7, 2017', []),
-            new DomElement('<h2>', {}, post.title, [])
+            new DomElement('<p>', {class:'blog-post-meta'}, 'December 23, 2013 by Jacob', []),
+            new DomElement('<h2>', {class:'blog-post-title'}, post.title, [])
         ];
 
-        var divCard = new DomElement('<div>', {class:'card'}, '',   nodes);
+        var divCard = new DomElement('<div>', {class:'blog-post'}, '',   nodes);
         return divCard;
     };
 
@@ -52,7 +72,7 @@ $(function(){
 
     var getPosts = function(uri) {
         $.get(uri, function(response, status) {
-            var divleftcolumn = $('.leftcolumn');
+            var divleftcolumn = $('.blog-main');
             divleftcolumn.empty();
 
             for(var post of response.data) {
@@ -63,72 +83,17 @@ $(function(){
             var urlPrev = response.links.prev && '/app/' + response.links.prev.split('/').slice(3).join('/');
             var urlNext = response.links.next && '/app/' + response.links.next.split('/').slice(3).join('/');
 
-            $('#pagPrev').attr('href', urlPrev);
-            $('#pagNext').attr('href', urlNext);
+            var nav = $('<nav class="blog-pagination">')
+                .append($('<a class="btn btn-outline-primary">Older</a>').attr('href', urlPrev))
+                .append($('<a class="btn btn-outline-primary">Newer</a>').attr('href', urlNext));
+
+                divleftcolumn.append(nav);
         });
     };
 
     var main = function() {
         getPosts('/app/api/posts');
     }();
-
-    // $.get('/app/api/posts', function(obj, status) {
-
-    //     console.log(obj.links.next);
-    //     var divleftcolumn = $('div.leftcolumn');
-    //     divleftcolumn.empty();
-        
-    //     var divPag = $('#pag');
-
-    //     var urlPrev = obj.links.prev && '/app/' + obj.links.prev.split('/').slice(3).join('/');
-    //     var urlNext = obj.links.next && '/app/' + obj.links.next.split('/').slice(3).join('/');
-
-    //     var aNext = $('<a href="' + urlNext +'">Next</a>');
-    //     var aPrev = $('<a href="' + urlPrev +'">Prev</a>');
-
-    //     divPag.append(aPrev);
-    //     divPag.append(aNext);
-
-    //     for(var post of obj.data) {            
-            
-    //         var divCard = $('<div class="card"></div>');
-    //         var h2 = $('<h2>' + post.title + '</h2>');
-    //         var h5 = $('<h5>Title description, Dec 7, 2017</h5>');
-    //         divCard.append(h2);
-    //         divCard.append(h5);
-
-    //         var divImg = $('<div class="fakeimg" style="height:200px;"></div>');
-    //         var img = $('<img src="/app/storage/images/' + post.image + '">');
-
-    //         divImg.append(img);
-    //         var divContent = $('<p>' + post.body + '</p>');
-
-    //         divCard.append(divImg);
-    //         divCard.append(divContent);
-
-    //         divleftcolumn.append(divCard);
-    //     }
-    // });
-
-
-
-    $('#searchField').on('keyup', function(event) {
-        event.preventDefault();
-
-        var value = this.value;
-        if (value.length >= 3) {
-            var path = '/app/api/posts?title='+value;
-            getPosts(path);
-        }
-        
-    });
-
-    $('a').on('click', function(event) {
-        event.preventDefault();
-        var href = $(this).attr('href');
-
-        if(href)
-            getPosts(href);
-    });
+    
 });
 
