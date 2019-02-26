@@ -30,8 +30,8 @@
                                     <td>{{ $post['title'] }}</td>
                                     <td>{{ $post['slug'] }}</td>
                                     <td>
-                                        <i class="fa fa-camera-retro fa-lg">
-                                            <!-- <a href="#{{ $post['id'] }}" class="delete">Delete</a> -->
+                                        <i class="">
+                                            <a href="#{{ $post['id'] }}" class="delete">Delete</a>
                                         </i>
                                         <i>
                                             <a href="/admin/show/{{ $post['id'] }}" class="edit">Edit</a>
@@ -68,6 +68,7 @@
                                 <div class="form-group">
                                     <label for="author_id">Author</label>
                                     <select class="form-control" id="author_id" name="author_id">
+                                        <option value=""></option>
                                         @foreach($authors['data'] as $author)
                                             <option value="{{ $author['id'] }}">{{ $author['name'] }}</option>
                                         @endforeach
