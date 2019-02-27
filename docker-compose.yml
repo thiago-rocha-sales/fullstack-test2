@@ -25,7 +25,6 @@ services:
   build:
    context: .
    dockerfile: ./dockers/php/Dockerfile
-<<<<<<< HEAD
   command: 
     ./app-init.sh
   volumes:
@@ -33,17 +32,5 @@ services:
     - ./.env-example:/var/www/app/.env
     - ./.env-example:/var/www/admin/.env
     - ./php.ini:/etc/php7/conf.d/50-setting.ini
-=======
-  # command: 
-  #   - composer install -n -o --no-dev -d ./admin
-  volumes:
-    - ./code:/code
-    # - ./vendor:/var/www/admin/vendor
-    - ./php.ini:/etc/php7/conf.d/50-setting.ini
-    # - ./conf/.env.example:/var/www/app/.env
-    # - ./conf/.env:/code/admin/.env
-  env_file:
-    - ./code/app/.env
->>>>>>> 92b6905861a9b766fbbf882a15fda7ac1d041386
   depends_on:
     - db
