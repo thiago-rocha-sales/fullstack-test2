@@ -16,11 +16,25 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 
 
 # RUN set -x ; \
-#     addgroup -g 1000 -S www-data ; \
-#     adduser -u 1000 -D -S -G www-data www-data ; exit 0
+#     addgroup -g 1000 -S nginx ; \
+#     adduser -u 1000 -D -S -G nginx nginx ; exit 0
+
+# USER www-data
+
+COPY --chown=www-data:www-data ./code/app /code/app
+
+RUN chmod -R 755 /code/app
+
+WORKDIR /code/app
 
 USER www-data
 
-WORKDIR /var/www
+# COPY ./vendor /var/www/admin/vendor
 
-ADD --chown=www-data:www-data ./code /var/www
+# RUN composer install -n -o --no-dev -d ./admin
+# RUN composer install
+# CMD "composer install -n -o --no-dev -d ./admin"
+
+# RUN php /var/www/app/artisan migrate --seed
+
+# RUN composer install -d ./admin
