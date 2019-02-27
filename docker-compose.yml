@@ -25,12 +25,12 @@ services:
   build:
    context: .
    dockerfile: ./dockers/php/Dockerfile
+  command: 
+    ./app-init.sh
   volumes:
     - ./code:/var/www
+    - ./.env-example:/var/www/app/.env
+    - ./.env-example:/var/www/admin/.env
     - ./php.ini:/etc/php7/conf.d/50-setting.ini
-    - ./config/.env:/code/app/.env
-    # - ./config/.env:/code/admin/.env
-  env_file:
-    - ./code/app/.env
   depends_on:
     - db

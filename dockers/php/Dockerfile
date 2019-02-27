@@ -15,12 +15,14 @@ RUN rm -Rf /var/cache/apk/*
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 
-# RUN set -x ; \
-#     addgroup -g 1000 -S www-data ; \
-#     adduser -u 1000 -D -S -G www-data www-data ; exit 0
-
-USER www-data
+RUN set -x ; \
+    addgroup -g 1000 -S www-data ; \
+    adduser -u 1000 -D -S -G www-data www-data ; exit 0
 
 WORKDIR /var/www
 
 ADD --chown=www-data:www-data ./code /var/www
+
+RUN chmod -R 755 /var/www
+
+USER www-data
