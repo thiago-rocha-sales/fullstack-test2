@@ -25,6 +25,8 @@ services:
   build:
    context: .
    dockerfile: ./dockers/php/Dockerfile
+   args:
+    - UID=${UID}
   command: 
     ./app-init.sh
   volumes:

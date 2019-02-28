@@ -15,9 +15,15 @@ RUN rm -Rf /var/cache/apk/*
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer
 
 
+# RUN set -x ; \
+#     addgroup -g 1000 -S nginx ; \
+#     adduser -u 1000 -D -S -G nginx nginx ; exit 0
+
+ARG UID
+
 RUN set -x ; \
-    addgroup -g 1000 -S nginx ; \
-    adduser -u 1000 -D -S -G nginx nginx ; exit 0
+    addgroup -g $UID -S nginx ; \
+    adduser -u $UID -D -S -G nginx nginx ; exit 0
 
 WORKDIR /var/www
 
