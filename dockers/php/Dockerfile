@@ -16,12 +16,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin -
 
 
 RUN set -x ; \
-    addgroup -g 1000 -S www-data ; \
-    adduser -u 1000 -D -S -G www-data www-data ; exit 0
+    addgroup -g 1000 -S nginx ; \
+    adduser -u 1000 -D -S -G nginx nginx ; exit 0
 
+WORKDIR /var/www
 
-ADD --chown=www-data:www-data ./code /var/www
+ADD --chown=nginx:nginx ./code /var/www
 
 RUN chmod -R 755 /var/www
 
-USER www-data
+USER nginx
