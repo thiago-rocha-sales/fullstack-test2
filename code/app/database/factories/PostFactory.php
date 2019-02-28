@@ -6,6 +6,7 @@ $factory->define(App\Post::class, function (Faker $faker) {
     $authors = App\Author::pluck('id')->toArray();
 
     $imagePath = storage_path('app/public/images');
+    // $imagePath = storage_path('images');
 
     if(!File::exists($imagePath)) {
         File::makeDirectory($imagePath);

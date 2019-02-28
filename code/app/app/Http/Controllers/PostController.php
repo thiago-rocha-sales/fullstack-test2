@@ -44,7 +44,8 @@ class PostController extends Controller
        
         $fileName = '';
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imagePath = storage_path('app/public/images');
+            // $imagePath = storage_path('app/public/images');
+            $imagePath = storage_path('images');
 
             // if(!File::exists($imagePath)) {
             //     File::makeDirectory($imagePath);

@@ -34,7 +34,7 @@ $(function(){
         var nodes = [
             new DomElement('<p>', {}, post.body, []),
             new DomElement('<p>', {style:'width: 100%;'}, '',
-                new DomElement('<img>', {src:'/app/storage/images/' + post.image}, '', [])),
+                new DomElement('<img>', {src:'/app/storage/images/' + post.image, style:'height:300px; width: 600px'}, '', [])),
             new DomElement('<p>', {class:'blog-post-meta'}, 'December 23, 2013 by Jacob', []),
             new DomElement('<h2>', {class:'blog-post-title'}, post.title, [])
         ];

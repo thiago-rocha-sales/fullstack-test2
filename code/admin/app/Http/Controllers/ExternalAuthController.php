@@ -61,6 +61,7 @@ class ExternalAuthController extends Controller
             $request->session()->forget('authenticated');
             $request->session()->forget('user');
             return redirect()->back()->with('error', 'The credentials do not match our records');
+        } catch (\Exception $e) {
         }
 
         // return $user;

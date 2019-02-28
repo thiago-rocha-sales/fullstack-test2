@@ -10,12 +10,12 @@ mkdir -p ./admin/storage/framework/cache \
     ./admin/storage/framework/sessions \
     ./admin/storage/framework/views
 
+php ./app/artisan storage:link
+
 php ./app/artisan migrate --seed
 
 php ./app/artisan passport:install
 
 composer install -d ./admin
 
-# php ./app/artisan key:generate
-
-# php-fpm
+php-fpm
