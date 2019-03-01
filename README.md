@@ -16,13 +16,13 @@ Blog usando somente arquivos estaticos
 + [Docker Compose](https://docs.docker.com/compose/) 
 
 ### Ajuste de Permissões
-+ Para usuários que estão utilizando OSX, configurar variável de ambiente
-+ utilizando o seguinte comando:
+Para usuários que estão utilizando OSX, configurar variável de ambiente
+utilizando o seguinte comando:
 ``` 
  export UID=1000
 ```
 
-+ Para usuários de Linux, executar da seguinte forma:
+Para usuários de Linux, executar da seguinte forma:
 ```
  export UID=$(id -u)
 ```
